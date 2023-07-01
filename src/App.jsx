@@ -1,10 +1,13 @@
 import React from "react";
-import { LowerSection, Navbar, Particle, UpperSection } from "./components";
+import { LowerSection, Navbar, Particle, Sidebar, UpperSection } from "./components";
 
 const App = () => {
   return (
-    <div className="min-h-screen flex justify-center items-center">
+    <div className="min-h-screen grid justify-center">
       <Particle />
+      <div className="z-10 absolute p-4 m-2 top-48">
+        <Sidebar />
+      </div>
       <div className="z-10 relative p-4 m-2">
         <Navbar />
       </div>
