@@ -34,9 +34,14 @@ contract RaptorsNft is ERC721, ERC721Enumerable, Pausable, Ownable {
 
     constructor() ERC721("RaptorsNft", "RNFT") {
         mintPrice = 0.01 ether;
-        maxSupply = 64;
+        maxSupply = 65;
         maxPerWallet = 3;
         withdrawWalletAddress = msg.sender;
+
+        // First 5 tokens reserved for owner
+        for (uint256 i = 0; i < 5; i++) {
+            mint();
+        }
     }
 
     function setIsPublicMintEnabled(bool isPublicMintEnabled_) external onlyOwner {
@@ -62,7 +67,12 @@ contract RaptorsNft is ERC721, ERC721Enumerable, Pausable, Ownable {
         require(totalSupply() < maxSupply, "Sold Out!");
 
         require(walletMints[msg.sender] + 1 <= maxPerWallet, "exceed max wallet mint");
+        walletMints[msg.sender] ++;
 
+        mint();
+    }
+
+    function mint() internal {
         uint256 tokenId = _tokenIdCounter.current();
         _tokenIdCounter.increment();
 
