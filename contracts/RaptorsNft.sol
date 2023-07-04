@@ -9,7 +9,7 @@ import "@openzeppelin/contracts/utils/Counters.sol";
 
 contract RaptorsNft is ERC721, ERC721Enumerable, Pausable, Ownable {
     using Counters for Counters.Counter;
-    using Strings for uint256;
+    // using Strings for uint256;
 
     Counters.Counter private _tokenIdCounter;
 
@@ -49,7 +49,7 @@ contract RaptorsNft is ERC721, ERC721Enumerable, Pausable, Ownable {
     }
 
     function _baseURI() internal pure override returns (string memory) {
-        return "ipfs://QmT5bbSLQvD9DFSTL36K6SdtnND7wtzcBnz1NwNyVuqamn/";
+        return "ipfs://bafybeibhfeugj6ns3zlh2yvd7zka7k3jalgeiu33a2uv5i5chg3tyqrpqe/";
     }
 
     function pause() public onlyOwner {
@@ -78,14 +78,14 @@ contract RaptorsNft is ERC721, ERC721Enumerable, Pausable, Ownable {
 
         _safeMint(msg.sender, tokenId);
 
-        string memory myBaseURI = _baseURI();
+        string memory myBaseURI = "ipfs://bafybeie3ptujwggr4rvhyezew6vpcaagbcnxmzmjidepbno2auckecwani/";
         
         sales.push(
             Sale(
                 tokenId, 
                 msg.sender,
                 mintPrice,
-                string(abi.encodePacked(myBaseURI, tokenId.toString(), ".png")),
+                string(abi.encodePacked(myBaseURI, Strings.toString(tokenId), ".png")),
                 block.timestamp
             ));
 
@@ -103,7 +103,7 @@ contract RaptorsNft is ERC721, ERC721Enumerable, Pausable, Ownable {
     function tokenURI(uint256 tokenId_) public view override returns (string memory) {
         require(_exists(tokenId_), "Metadata: URI query for Nonexistent token");
         string memory myBaseURI = _baseURI();
-        return string(abi.encodePacked(myBaseURI, tokenId_.toString(), ".json"));
+        return string(abi.encodePacked(myBaseURI, Strings.toString(tokenId_), ".json"));
     }
 
     function withdraw() external onlyOwner {
