@@ -17,7 +17,7 @@ const Particle = () => {
       interactivity: {
         events: {
           onClick: {
-            enable: true,
+            enable: false,
             mode: "push",
           },
           onHover: {
@@ -27,7 +27,7 @@ const Particle = () => {
         },
         modes: {
           push: {
-            quantity: 20,
+            quantity: 15,
           },
           repulse: {
             distance: 150,
@@ -48,7 +48,7 @@ const Particle = () => {
           value: {min: 0.3, max: 0.7},
         },
         number: {
-          value: 100,
+          value: 150,
           density: {
             enable: true,
             value_area: 700,
@@ -56,12 +56,6 @@ const Particle = () => {
         },
         size: {
           value: {min: 1.5, max: 3},
-        },
-        shape: {
-          type: "triangle",
-          stroke: {
-            color: "#808080",
-          },
         },
       }
     }
