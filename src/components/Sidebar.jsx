@@ -1,17 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
 import { logo } from "../assets";
+import { navlinks } from "../constants";
+import { Link, useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
+  const navigate = useNavigate();
+  const [isActive, setIsActive] = useState("home");
+
   return (
-    <div className="bg-[#121212] bg-opacity-70 backdrop-blur-sm outline outline-2 outline-offset-0 outline-black rounded-[20px] w-[80px] flex flex-col h-[360px] p-2">
-      <div className="flex flex-col items-center justify-center gap-14 p-2 m-1">
-        <div className="w-[64px] h-[64px] flex items-center justify-center bg-black p-2 rounded-box cursor-pointer border-gray-600">
-          <img className="w-full h-full" src={logo} alt="logo"/>
-        </div>
-        <div className="flex flex-col items-center justify-center gap-8">
-        <h3>Home</h3>
-        <h3>Evolve</h3>
-        <h3>Artwork</h3>
+    <div className="bg-[#121212] bg-opacity-70 hidden backdrop-blur-sm outline outline-2 outline-offset-0 outline-black rounded-box w-[80px] sm:flex flex-col h-[320px] p-2">
+      <div className="flex flex-col items-center justify-center space-y-12 p-2 m-1">
+        <Link to="/">
+          <div className="w-[56px] h-[56px] flex items-center justify-center bg-[#212121] p-2 rounded-box cursor-pointer outline-black outline outline-2 outline-offset-0 hover:scale-105">
+            <img className="w-full h-full" src={logo} alt="logo"/>
+          </div>
+        </Link>
+        <div className="flex flex-col items-center justify-center gap-5">
+          {navlinks.map((item) => (
+            <>
+              <div 
+                className={`cursor-pointer ${isActive && isActive === item.name && "text-[#ff33bb] bg-[#303030] bg-opacity-70 w-[70px] flex justify-center rounded-[5px] active:scale-110"}`} 
+                onClick={() => {
+                  setIsActive(item.name);
+                  navigate(item.link);
+                  }}>
+                <h3 className="font-poppins font-medium">{item.name}</h3>
+              </div>
+            </>
+          ))}
         </div>
       </div>
     </div>
