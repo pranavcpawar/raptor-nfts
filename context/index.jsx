@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState, createContext } from "react";
 import abi from "../src/abi/RaptorsNft.json";
 import { ethers } from "ethers";
 
-const MintContext = createContext();
+const MintDappContext = createContext();
 
 export const MintDappProvider = ({ children }) => {
   const [state, setState] = useState({
@@ -33,4 +33,16 @@ export const MintDappProvider = ({ children }) => {
     connectWallet();
   }, []);
 
+  return (
+    <MintDappContext.Provider
+      value={{
+        state,
+        connectWallet,
+      }}
+    >
+      {children}
+    </MintDappContext.Provider>
+  )
 };
+
+export const useMintDappContext = () => useContext(MintDappContext);
