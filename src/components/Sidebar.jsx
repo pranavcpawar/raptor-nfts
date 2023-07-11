@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import { logo } from "../assets";
 import { navlinks } from "../constants";
 import { Link, useNavigate } from "react-router-dom";
@@ -17,7 +17,7 @@ const Sidebar = () => {
         </Link>
         <div className="flex flex-col items-center justify-center gap-5">
           {navlinks.map((item) => (
-            <>
+            <Fragment key={item.name}>
               <div 
                 className={`cursor-pointer ${isActive && isActive === item.name && "text-[#ff33bb] bg-[#303030] bg-opacity-70 w-[70px] flex justify-center rounded-[5px] active:scale-110"}`} 
                 onClick={() => {
@@ -26,7 +26,7 @@ const Sidebar = () => {
                   }}>
                 <h3 className="font-poppins font-medium">{item.name}</h3>
               </div>
-            </>
+            </Fragment >
           ))}
         </div>
       </div>
