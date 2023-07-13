@@ -1,4 +1,5 @@
 import React from "react";
+import { useMintDappContext } from "../../context";
 import { metamask } from "../assets";
 
 
@@ -8,12 +9,15 @@ const truncate = (_walletAddress) => {
 
 const ConnectWallet = () => {
 
-  const isConnected = true;
+  const { isConnected, connectWallet } = useMintDappContext();
+
   const truncatedAddress = truncate("0xB1bD506fC9FD21299ABC790Bdf85A17AF74BCC6C");
 
   return (
     <div className="flex flex-col items-center">
-      <button className= {`font-poppins text-md w-[160px] ${!isConnected ? "h-[48px]" : "h-[64px] w-[180px]"} p-2 bg-[#161618] outline outline-2 outline-offset-0 outline-black rounded-box backdrop-blur-sm shadow-[1px_1px_20px] shadow-black hover:bg-[#202020] active:scale-110 font-semibold`}>
+      <button 
+        className= {`font-poppins text-md w-[160px] ${!isConnected ? "h-[48px]" : "h-[64px] w-[180px]"} p-2 bg-[#161618] outline outline-2 outline-offset-0 outline-black rounded-box backdrop-blur-sm shadow-[1px_1px_20px] shadow-black hover:bg-[#202020] active:scale-110 font-semibold`} 
+        onClick={() => { !isConnected ? connectWallet() : alert("modal open") }}>
         {isConnected ? (
           <div className="flex flex-row items-center gap-2 justify-center">
             <div className="flex flex-col items-start">
