@@ -12,6 +12,7 @@ export const MintDappProvider = ({ children }) => {
     contract: null
   });
   const [walletAddress, setWalletAddress] = useState("");
+  const [walletBalance, setWalletBalance] = useState(0);
   const [isConnected, setIsConnected] = useState(false);
   const [getNFTs, setGetNFTs] = useState([]);
   const { ethereum } = window;
@@ -27,10 +28,10 @@ export const MintDappProvider = ({ children }) => {
   // create contract instance
   const raptorsNft = async() => {
     if (walletAddress) {
-      const provider = new ethers.providers.Web3Provider(ethereum);
-      const signer = provider.getSigner();
-      const contract = new ethers.Contract(raptorsNftAddress, raptorsNftABI, signer);
-      setWeb3State({ provider, signer, contract });
+    const provider = new ethers.providers.Web3Provider(ethereum);
+    const signer = provider.getSigner();
+    const contract = new ethers.Contract(raptorsNftAddress, raptorsNftABI, signer);
+    setWeb3State({ provider, signer, contract });
     };
   }
 
@@ -39,8 +40,14 @@ export const MintDappProvider = ({ children }) => {
     try {
       if (ethereum) {
         const accounts = await ethereum.request({ method: "eth_requestAccounts"});
+        const balances = await ethereum.request({ 
+          method: "eth_getBalance",
+          params: [accounts[0], "latest"]
+        });
         setWalletAddress(accounts[0]);
+        setWalletBalance(parseInt(balances,16) / 10**18);
         setIsConnected(true);
+        raptorsNft(accounts[0]);
         console.log("wallet address: ", accounts[0]);
       } else {
         alert("Install Metamask!");
@@ -49,14 +56,19 @@ export const MintDappProvider = ({ children }) => {
       console.log("error: ", err);
     }
   };
-
+  
   // check if wallet is still connected
   const isWalletConnected = async() => {
     try {
       if (ethereum) {
         const accounts = await ethereum.request({ method: "eth_accounts"});
         if (accounts.length > 0) {
+          const balances = await ethereum.request({ 
+            method: "eth_getBalance",
+            params: [accounts[0], "latest"]
+          });
           setWalletAddress(accounts[0]);
+          setWalletBalance(parseInt(balances,16) / 10**18);
           setIsConnected(true);
         } else {
           setIsConnected(false);
@@ -65,10 +77,10 @@ export const MintDappProvider = ({ children }) => {
         alert("Install Metamask!");
       }
     } catch (err) {
-      console.log("error: ", err);
+      console.log("error: ", err.message);
     }
   };
-  
+
   // add listener for account change
   const listenWalletEvent = async() => {
     if(ethereum) {
@@ -83,7 +95,7 @@ export const MintDappProvider = ({ children }) => {
     }
   };
   
-  // disconnect dapp function
+  // Todo: debug this function as it can not retain the previous state and connects again
   const disconnectWallet = async() => {
     if (ethereum) {
       setWalletAddress("");
@@ -142,12 +154,14 @@ export const MintDappProvider = ({ children }) => {
       value={{
         web3state,
         walletAddress,
+        walletBalance,
         isConnected,
         connectWallet,
         getMintedNFTs,
         mintNft,
         disconnectWallet,
         getNFTs,
+        raptorsNftAddress,
       }}>
       {children}
     </MintDappContext.Provider>
