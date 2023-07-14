@@ -14,7 +14,7 @@ export const MintDappProvider = ({ children }) => {
   const [walletAddress, setWalletAddress] = useState("");
   const [walletBalance, setWalletBalance] = useState(0);
   const [isConnected, setIsConnected] = useState(false);
-  const [getNFTs, setGetNFTs] = useState([]);
+  const [nfts, setNfts] = useState([]);
   const { ethereum } = window;
   const raptorsNftAddress = "0xC4b0F75Aeb8D09Def52c6Af14d413E8d99839729";
   const raptorsNftABI = abi.abi;
@@ -127,24 +127,25 @@ export const MintDappProvider = ({ children }) => {
     try {
       if(ethereum) {
         const { contract } = raptorsNft();
-        const raw_nfts = await contract.listMintedNFTs();
-        console.log(raw_nfts);
-        setGetNFTs(nfts(raw_nfts));
+        const nfts = await contract.listMintedNFTs();
+        setNfts(arrangeNfts(nfts));
       }
     } catch (err) {
       console.log(err.message);
     }
   };
 
-  const nfts = (_raw_nfts) => 
-    _raw_nfts.map((_nft) => ({
-      id: Number(_nft.id),
-      url: openSeaURI + _nft.id,
-      buyer: _nft.buyer,
-      imageUrl: _nft.imageUrl,
-      price: parseInt(_nft.price._hex) / 10**18,
-      timestamp: new Date(_nft.timestamp.toNumber()).getTime(),
-    })).reverse()
+  const arrangeNfts = (nfts) => 
+    nfts
+      .map((nft) => ({
+        id: parseInt(nft.id),
+        url: openSeaURI + nft.id,
+        buyer: nft.buyer,
+        imageURL: nft.imageURL,
+        mintPrice: parseInt(nft.mintPrice._hex) / 10**18,
+        timestamp: new Date(nft.timestamp.toNumber()).getTime(),
+      }))
+      .reverse()
   
   return (
     <MintDappContext.Provider
