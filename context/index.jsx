@@ -9,7 +9,7 @@ export const MintDappProvider = ({ children }) => {
   const [web3state, setWeb3State] = useState({
     provider: null,
     signer: null,
-    contract: null
+    contract: null,
   });
   const [walletAddress, setWalletAddress] = useState("");
   const [walletBalance, setWalletBalance] = useState(0);
@@ -26,13 +26,12 @@ export const MintDappProvider = ({ children }) => {
   });
 
   // create contract instance
-  const raptorsNft = async() => {
-    if (walletAddress) {
+  const raptorsNft = () => {
     const provider = new ethers.providers.Web3Provider(ethereum);
     const signer = provider.getSigner();
     const contract = new ethers.Contract(raptorsNftAddress, raptorsNftABI, signer);
     setWeb3State({ provider, signer, contract });
-    };
+    return { provider, signer, contract }
   }
 
   // connect wallet function
@@ -108,8 +107,7 @@ export const MintDappProvider = ({ children }) => {
   const mintNft = async() => {
     try {
       if(ethereum) {
-        raptorsNft();
-        const { contract } = web3state;
+        const { contract } = raptorsNft();
         const price = ethers.utils.parseEther("0.01");
         const transaction = await contract.mintRaptorNft({
           from: walletAddress,
@@ -128,8 +126,7 @@ export const MintDappProvider = ({ children }) => {
   const getMintedNFTs = async() => {
     try {
       if(ethereum) {
-        raptorsNft();
-        const { contract } = web3state;
+        const { contract } = raptorsNft();
         const raw_nfts = await contract.listMintedNFTs();
         console.log(raw_nfts);
         setGetNFTs(nfts(raw_nfts));
@@ -160,7 +157,7 @@ export const MintDappProvider = ({ children }) => {
         getMintedNFTs,
         mintNft,
         disconnectWallet,
-        getNFTs,
+        nfts,
         raptorsNftAddress,
       }}>
       {children}
