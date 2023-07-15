@@ -16,7 +16,7 @@ export const MintDappProvider = ({ children }) => {
   const [isConnected, setIsConnected] = useState(false);
   const [nfts, setNfts] = useState([]);
   const { ethereum } = window;
-  const raptorsNftAddress = "0xC4b0F75Aeb8D09Def52c6Af14d413E8d99839729";
+  const raptorsNftAddress = "0x53B8424D125111B147beaDC6B608af8c0C988430";
   const raptorsNftABI = abi.abi;
   const openSeaURI = `https://testnets.opensea.io/assets/mumbai/${raptorsNftAddress}/`
 
