@@ -78,7 +78,7 @@ contract RaptorsNft is ERC721, ERC721Enumerable, Pausable, Ownable {
 
         _safeMint(msg.sender, tokenId);
 
-        string memory myBaseURI = "ipfs://bafybeie3ptujwggr4rvhyezew6vpcaagbcnxmzmjidepbno2auckecwani/";
+        string memory myBaseURI = "https://ipfs.io/ipfs/bafybeie3ptujwggr4rvhyezew6vpcaagbcnxmzmjidepbno2auckecwani/";
         
         sales.push(
             Sale(
