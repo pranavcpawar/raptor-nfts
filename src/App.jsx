@@ -1,5 +1,5 @@
 import React from "react";
-import { LowerSection, Navbar, Particle, Sidebar, UpperSection } from "./components";
+import { LowerSection, Particle, Sidebar, UpperSection } from "./components";
 import { Route, Routes } from "react-router-dom";
 import { Artwork, Home, Mint } from "./pages";
 
@@ -9,6 +9,10 @@ const App = () => {
       <Particle />
       <div className="z-10 absolute p-4 m-2 top-48">
         <Sidebar />
+      </div>
+      <div className="z-5 fixed w-[100vw] h-[100vh]">
+        <UpperSection />
+        <LowerSection />
       </div>
       <Routes>
         <Route path="/" element={<Home />} />

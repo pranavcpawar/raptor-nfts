@@ -13,7 +13,7 @@ const Home = () => {
       <div className="z-10 absolute p-4 m-2">
         <Navbar />
       </div>
-      <div className="z-5 relative w-[100vw] h-[100vh]">
+      <div className="z-5 fixed w-[100vw] h-[100vh]">
         <UpperSection />
         <LowerSection />
       </div>
