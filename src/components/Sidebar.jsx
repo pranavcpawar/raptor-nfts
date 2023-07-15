@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { logo } from "../assets";
 import { navlinks } from "../constants";
 import { Link, useNavigate } from "react-router-dom";
@@ -6,6 +6,10 @@ import { Link, useNavigate } from "react-router-dom";
 const Sidebar = () => {
   const navigate = useNavigate();
   const [isActive, setIsActive] = useState("home");
+
+  useEffect(() => {
+    navigate("/");
+  },[])
 
   return (
     <div className="bg-[#121212] bg-opacity-70 hidden backdrop-blur-sm outline outline-2 outline-offset-0 outline-black rounded-box w-[80px] sm:flex flex-col h-[320px] p-2">
