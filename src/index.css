@@ -5,6 +5,26 @@
 @tailwind components;
 @tailwind utilities;
 
+.bg-animate {
+  background: linear-gradient(-45deg, #1D296A, #701a75 , #7B3FE4);
+  background: linear-gradient(-104.84deg, #1D296A 0%, #701a75 29.04%, #7B3FE4 64.35%, #ff33bb 106.03%);
+  background-repeat: no-repeat;
+
+  background-size: 400% 400%;
+  animation: animate 15s ease infinite;
+}
+
+@keyframes animate {
+  0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
 
 .upper-gradient {
   background: linear-gradient(-45deg, #1D296A , #702441 , #B62820 );
