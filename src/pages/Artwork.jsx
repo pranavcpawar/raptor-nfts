@@ -1,11 +1,40 @@
-import React from "react";
+import React, { Fragment, useEffect } from "react";
+import { useMintDappContext } from "../../context";
 
 const Artwork = () => {
+  const { nfts, getMintedNFTs } = useMintDappContext();
+
+  useEffect(() => {
+    getMintedNFTs();
+    return () => {
+      nfts
+    }
+  }, []);
+
   return (
-    <div className="z-10 min-h-screen grid place-content-center">
-      <div className="flex flex-col sm:w-[65vw] sm:h-[90vh] w-[100vw] h-[100vh] shadow-[1px_2px_20px] shadow-[#ff33bb] bg-[#121212] bg-opacity-70 items-center justify-center rounded-box outline outline-black outline-2 outline-offset-0">
-        <div>
-          Artwork
+    <div className="min-h-screen grid place-items-center">
+      <div className="min-h-screen z-10 fixed pt-5">
+        <h1 className="font-poppins text-5xl cursor-pointer font-bold">
+          <span>NFT Art</span>
+          <span className="text-black">work.</span>
+        </h1>
+      </div>
+      <div className="z-10 group fixed flex flex-col w-[450px] group-hover:h-[500px] bg-[rgba(0,0,0,0.25)] shadow-[1px_2px_20px] bg-opacity-70 rounded-box outline outline-black outline-2 outline-offset-0 backdrop-blur-sm">
+        <div className="carousel carousel-center pt-3 pb-3 pr-3 pl-3 space-x-5 rounded-box">
+          {nfts.map((nft, i) => (
+            <Fragment key={i}>
+              <div className="carousel-item">
+                <div className="flex flex-col place-items-center space-y-3">
+                  <a href={nft.url} target="_blank">
+                    <img src={nft.imageURL} className="h-[425px] w-[425px] outline-2 bg-[#0D0D0D] outline outline-black outline-offset-0 shadow-[1px_2px_20px] shadow-black rounded-box"/>
+                  </a>
+                  <div className="group-hover:grid hidden bg-animate cursor-pointer w-[425px] h-[40px] place-content-center p-2 outline outline-2 outline-offset-0 outline-black rounded-box shadow-[1px_2px_20px] shadow-black">
+                    <h1 className="font-poppins text-xl font-semibold text-[black]">RaptorsNFT #{nft.id}</h1>
+                  </div>
+                </div>
+              </div>
+            </Fragment>
+          ))}
         </div>
       </div>
     </div>
