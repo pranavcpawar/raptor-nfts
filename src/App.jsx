@@ -7,7 +7,7 @@ const App = () => {
   return (
     <div className="min-h-screen relative grid justify-center items-center">
       <Particle />
-      <div className="z-10 absolute p-4 m-2 top-48">
+      <div className="z-10 fixed p-4 m-2 top-48">
         <Sidebar />
       </div>
       <div className="z-5 fixed w-[100vw] h-[100vh]">
