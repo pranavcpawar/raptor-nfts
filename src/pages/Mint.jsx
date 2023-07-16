@@ -1,27 +1,50 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useMintDappContext } from "../../context";
 
 const Mint = () => {
 
-  const { raptorsNftAddress } = useMintDappContext();
+  const { raptorsNftAddress, mintNft } = useMintDappContext();
+
+  const [index, setIndex] = useState(0);
+  const images = 65;
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setIndex(prevIndex => (1 + prevIndex) % images);
+    },1000);
+    return () => {
+      clearInterval(intervalId);
+    }
+  },[]);
+
 
   return (
-    <div className="z-10 min-h-screen grid place-content-center">
-        <div className="flex flex-col sm:w-[60vw] sm:h-[60vh] w-[100vw] h-[100vh] bg-[#121212] shadow-[1px_2px_20px] shadow-[#ff33bb] backdrop-blur-sm bg-opacity-70 p-4 m-2 sm:rounded-box outline outline-black outline-2 outline-offset-0 space-y-5">
-          <div className="flex flex-col items-center">
-            <h1 className="font-poppins font-semibold lg:text-xl underline underline-offset-2">{raptorsNftAddress}</h1>
+    <div className="min-h-screen grid place-items-center">
+      <div className="min-h-screen z-10 fixed pt-5">
+        <h1 className="font-poppins text-5xl cursor-pointer font-bold">
+          <span>Mint </span>
+          <span className="text-black"> NFT.</span>
+        </h1>
+      </div>
+      <div className="z-10 flex fixed flex-col w-[450px] h-[450px] bg-[rgba(0,0,0,0.25)] shadow-[1px_2px_20px] backdrop-blur-sm bg-opacity-70 p-4 m-2 rounded-box outline outline-black outline-2 outline-offset-0 space-y-5 place-items-center">
+        <a target="_blank" href={`https://mumbai.polygonscan.com/address/${raptorsNftAddress}`}>
+          <div className="flex flex-col items-center justify-center w-[420px] h-[40px] bg-gradient-to-br from-fuchsia-900 to-violet-900 bgg-animate p-2 rounded-[10px] text-black outline outline-2 outline-offset-0">
+            <h1 className="font-poppins font-semibold">{raptorsNftAddress}</h1>
           </div>
-          <div className="flex flex-col items-center">
-            <button className="font-poppins text-sm bg-[#161618] text-[#a726c1] w-[120px] h-[48px] p-2 outline outline-1 outline-offset-0 outline-[#232326] rounded-[12px] hover:bg-[#191919] hover:outline-[#323232] active:scale-110 font-medium">opensea</button>
+        </a>
+        <div className="flex flex-1 flex-col bg-[rgb(38,38,38,0.25)] bg-opacity-70 backdrop-blur-sm p-4 rounded-box w-[420px] items-center justify-between outline outline-2 outline-offset-0 outline-black gap-2">
+          <div className="w-[240px] h-[240px] cursor-pointer bg-[#0D0D0D] rounded-box outline outline-2 outline-offset-0 outline-black shadow-black shadow-[1px_2px_20px]">
+            <img src={`/artworks/${index}.png`} alt="nfts"/>
           </div>
-          <div className="flex flex-col items-center">
-            Add Image
-          </div>
-          <div className="flex flex-col items-center">
-            <button className="font-poppins text-sm bg-[#161618] text-[#a726c1] w-[120px] h-[48px] p-2 outline outline-1 outline-offset-0 outline-[#232326] rounded-[12px] hover:bg-[#191919] hover:outline-[#323232] active:scale-110 font-medium">Mint NFT</button>
+          <div className="flex flex-row gap-4 place-items-center">
+            <a target="_blank" href="https://testnets.opensea.io/collection/raptorsnft-9">
+              <div className= "font-poppins text-md w-[160px] h-[48px] p-2 bg-[#161618] grid place-items-center outline outline-2 outline-offset-0 outline-black rounded-box backdrop-blur-sm shadow-[1px_1px_20px] shadow-black hover:bg-[#202020] active:scale-110 font-semibold">Opensea</div>
+            </a>
+            <button className= "font-poppins text-md w-[160px] h-[48px] p-2 bg-[#161618] outline outline-2 outline-offset-0 outline-black rounded-box backdrop-blur-sm shadow-[1px_1px_20px] shadow-black hover:bg-[#202020] active:scale-110 font-semibold" onClick={mintNft}>Mint</button>
           </div>
         </div>
       </div>
+    </div>
   );
 };
 
