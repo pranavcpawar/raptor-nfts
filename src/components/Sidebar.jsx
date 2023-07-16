@@ -23,7 +23,7 @@ const Sidebar = () => {
           {navlinks.map((item) => (
             <Fragment key={item.name}>
               <div 
-                className={`cursor-pointer ${isActive && isActive === item.name && "text-[#ff33bb] bg-[#303030] bg-opacity-70 w-[70px] flex justify-center rounded-[5px] active:scale-110"}`} 
+                className={`cursor-pointer ${isActive && isActive === item.name && "text-[#ff33bb] bg-[rgba(255,51,187,0.2)]  bg-opacity-70 w-[70px] flex justify-center rounded-[5px] active:scale-110"}`} 
                 onClick={() => {
                   setIsActive(item.name);
                   navigate(item.link);
