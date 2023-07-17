@@ -1,5 +1,5 @@
 import React from "react";
-import { Navbar, UpperSection, LowerSection } from "../components";
+import { Navbar } from "../components";
 
 const Home = () => {
   return (
@@ -12,10 +12,6 @@ const Home = () => {
       </div>
       <div className="z-10 fixed p-4 m-2">
         <Navbar />
-      </div>
-      <div className="z-5 fixed w-[100vw] h-[100vh]">
-        <UpperSection />
-        <LowerSection />
       </div>
     </div>
   );
