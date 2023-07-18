@@ -11,6 +11,15 @@ export const MintDappProvider = ({ children }) => {
     signer: null,
     contract: null,
   });
+  const [loader, setLoader] = useState({
+    isLoading: false,
+    msg: "",
+  });
+  const [alertBox, setAlertBox] = useState({
+    isAlert: false,
+    msg: "",
+    color: "",
+  });
   const [walletAddress, setWalletAddress] = useState("");
   const [walletBalance, setWalletBalance] = useState(0);
   const [isConnected, setIsConnected] = useState(false);
@@ -160,6 +169,10 @@ export const MintDappProvider = ({ children }) => {
         disconnectWallet,
         nfts,
         raptorsNftAddress,
+        loader,
+        setLoader,
+        alertBox,
+        setAlertBox,
       }}>
       {children}
     </MintDappContext.Provider>
