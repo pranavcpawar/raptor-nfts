@@ -103,14 +103,14 @@ export const MintDappProvider = ({ children }) => {
     }
   };
   
-  // Todo: debug this function as it can not retain the previous state and connects again
-  const disconnectWallet = async() => {
-    if (ethereum) {
-      setWalletAddress("");
-      setIsConnected(false);
-      window.ethereum.removeAllListeners(["accountsChanged"]);
-    }
-  };
+  // // Todo: debug this function as it can not retain the previous state and connects again
+  // const disconnectWallet = async() => {
+  //   if (ethereum) {
+  //     setWalletAddress("");
+  //     setIsConnected(false);
+  //     window.ethereum.removeAllListeners(["accountsChanged"]);
+  //   }
+  // };
 
   // mint nft function
   const mintNft = async() => {
@@ -166,7 +166,7 @@ export const MintDappProvider = ({ children }) => {
         connectWallet,
         getMintedNFTs,
         mintNft,
-        disconnectWallet,
+        // disconnectWallet,
         nfts,
         raptorsNftAddress,
         loader,
