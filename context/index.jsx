@@ -155,6 +155,14 @@ export const MintDappProvider = ({ children }) => {
         timestamp: new Date(nft.timestamp.toNumber()).getTime(),
       }))
       .reverse()
+
+  const setAlertPrompt = (msg, color) => {
+    setAlertBox({isAlert: true, msg: msg, color: color })
+    setTimeout(() => {
+      setAlertBox({ isAlert: false, msg: "", color: "" }),
+      setLoader({ isLoading: false, msg: "" })
+    },5000)
+  }
   
   return (
     <MintDappContext.Provider
@@ -173,6 +181,7 @@ export const MintDappProvider = ({ children }) => {
         setLoader,
         alertBox,
         setAlertBox,
+        setAlertPrompt,
       }}>
       {children}
     </MintDappContext.Provider>
