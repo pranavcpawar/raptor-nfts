@@ -4,19 +4,15 @@ import ConnectWallet from "./ConnectWallet";
 
 const Navbar = () => {
 
-  const { isConnected, mintNft, setLoader, setAlertPrompt } = useMintDappContext();
+  const { isConnected, mintNft, setLoader } = useMintDappContext();
 
   const onMintNft = async() => {
-    
     setLoader({
       isLoading: true,
       msg: "Minting NFT to your wallet",
     })
 
-    let res = await mintNft()
-    console.log(res)
-      // .then(() => setAlertPrompt("Minting successful...", "green"))
-      // .catch(() => setLoader({ isLoading: false, msg: "" }));
+    await mintNft()
   }
   
   return (

@@ -18,7 +18,7 @@ export const MintDappProvider = ({ children }) => {
   const [alertBox, setAlertBox] = useState({
     isAlert: false,
     msg: "",
-    color: "",
+    color: "red",
   });
   const [walletAddress, setWalletAddress] = useState("");
   const [walletBalance, setWalletBalance] = useState(0);
@@ -103,6 +103,14 @@ export const MintDappProvider = ({ children }) => {
     }
   };
   
+  const setAlertPrompt = (msg, color) => {
+    setAlertBox({isAlert: true, msg: msg, color: color })
+    setTimeout(() => {
+      setLoader({ isLoading: false, msg: "" })
+      setAlertBox({ isAlert: false, msg: "", color: "red" })
+    },5000)
+  }
+
   // // Todo: debug this function as it can not retain the previous state and connects again
   // const disconnectWallet = async() => {
   //   if (ethereum) {
@@ -123,11 +131,11 @@ export const MintDappProvider = ({ children }) => {
           value: price._hex,
         })
         await transaction.wait();
-        window.location.reload();
-        console.log("transaction completed!")
+        setAlertPrompt("Minting successful...", "green");
+        console.log("transaction completed!");
       }
     } catch (err){
-      console.log(err.message);
+      setAlertPrompt(err.reason.split(":")[1], "red");
     }
   };
 
@@ -155,14 +163,6 @@ export const MintDappProvider = ({ children }) => {
         timestamp: new Date(nft.timestamp.toNumber()).getTime(),
       }))
       .reverse()
-
-  const setAlertPrompt = (msg, color) => {
-    setAlertBox({isAlert: true, msg: msg, color: color })
-    setTimeout(() => {
-      setAlertBox({ isAlert: false, msg: "", color: "" }),
-      setLoader({ isLoading: false, msg: "" })
-    },5000)
-  }
   
   return (
     <MintDappContext.Provider
