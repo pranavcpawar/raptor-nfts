@@ -5,7 +5,7 @@ import { Artwork, Home, Mint } from "./pages";
 
 const App = () => {
   return (
-    <div className="min-h-screen relative grid items-center justify-center">
+    <div className="min-h-screen relative grid items-center justify-center bg-black">
       <Particle />
       <div className="z-10 fixed p-4 m-2">
         <Sidebar />
