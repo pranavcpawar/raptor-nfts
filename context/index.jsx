@@ -107,7 +107,7 @@ export const MintDappProvider = ({ children }) => {
     setAlertBox({isAlert: true, msg: msg, color: color })
     setTimeout(() => {
       setLoader({ isLoading: false, msg: "" })
-      setAlertBox({ isAlert: false, msg: "", color: "red" })
+      setAlertBox({ isAlert: false, msg: "", color: color })
     },5000)
   }
 
