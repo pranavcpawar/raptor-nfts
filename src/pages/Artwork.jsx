@@ -2,14 +2,20 @@ import React, { Fragment, useEffect } from "react";
 import { useMintDappContext } from "../../context";
 
 const Artwork = () => {
-  const { nfts, getMintedNFTs } = useMintDappContext();
+  const { nfts, getMintedNFTs, setLoader, setAlertPrompt, loader, alertBox, isConnected } = useMintDappContext();
 
   useEffect(() => {
-    getMintedNFTs();
-    return () => {
-      nfts
+    const getNfts = async() => {
+      setLoader({
+        isLoading: true,
+        msg: "NFTs loading...",
+      })
+      await getMintedNFTs()
+      setAlertPrompt("Successfully loaded NFTs!", "green");
+
     }
-  }, []);
+    {isConnected ? getNfts() : setAlertPrompt("wallet not connected!", "red")};
+  }, [isConnected]);
 
   return (
     <div className="min-h-screen grid place-items-center">
@@ -19,7 +25,8 @@ const Artwork = () => {
           <span className="text-black">work.</span>
         </h1>
       </div>
-      <div className="z-10 group fixed flex flex-col w-[265px] group-hover:h-[320px] bg-[rgba(0,0,0,0.25)] shadow-[1px_2px_20px] bg-opacity-70 rounded-box outline outline-black outline-2 outline-offset-0 backdrop-blur-sm">
+      {isConnected &&
+      <div className={`z-10 group ${loader.isLoading || alertBox.isAlert == true ? "hidden": "flex"} fixed flex-col w-[265px] group-hover:h-[320px] bg-[rgba(0,0,0,0.25)] shadow-[1px_2px_20px] bg-opacity-70 rounded-box outline outline-black outline-2 outline-offset-0 backdrop-blur-sm`}>
         <div className="carousel carousel-center pt-3 pb-3 pr-3 pl-3 space-x-5 rounded-box">
           {nfts.map((nft, i) => (
             <Fragment key={i}>
@@ -37,6 +44,7 @@ const Artwork = () => {
           ))}
         </div>
       </div>
+      }
     </div>
   );
 };
