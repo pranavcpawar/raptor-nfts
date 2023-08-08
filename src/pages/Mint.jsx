@@ -3,7 +3,7 @@ import { useMintDappContext } from "../../context";
 
 const Mint = () => {
 
-  const { raptorsNftAddress, mintNft } = useMintDappContext();
+  const { raptorsNftAddress, mintNft, setLoader } = useMintDappContext();
 
   const [index, setIndex] = useState(0);
   const images = 65;
@@ -17,6 +17,14 @@ const Mint = () => {
     }
   },[]);
 
+  const onMintNft = async() => {
+    setLoader({
+      isLoading: true,
+      msg: "Minting NFT to your wallet",
+    })
+
+    await mintNft()
+  }
 
   return (
     <div className="min-h-screen grid place-items-center">
@@ -40,7 +48,7 @@ const Mint = () => {
             <a target="_blank" href="https://testnets.opensea.io/collection/raptorsnft-9">
               <div className= "font-poppins text-md w-[160px] h-[48px] p-2 bg-[#161618] grid place-items-center outline outline-2 outline-offset-0 outline-black rounded-box backdrop-blur-sm shadow-[1px_1px_20px] shadow-black hover:bg-[#202020] active:scale-110 font-semibold">Opensea</div>
             </a>
-            <button className= "font-poppins text-md w-[160px] h-[48px] p-2 bg-[#161618] outline outline-2 outline-offset-0 outline-black rounded-box backdrop-blur-sm shadow-[1px_1px_20px] shadow-black hover:bg-[#202020] active:scale-110 font-semibold" onClick={mintNft}>Mint</button>
+            <button className= "font-poppins text-md w-[160px] h-[48px] p-2 bg-[#161618] outline outline-2 outline-offset-0 outline-black rounded-box backdrop-blur-sm shadow-[1px_1px_20px] shadow-black hover:bg-[#202020] active:scale-110 font-semibold" onClick={onMintNft}>Mint</button>
           </div>
         </div>
       </div>
