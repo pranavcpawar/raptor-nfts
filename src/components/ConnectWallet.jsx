@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { useMintDappContext } from "../../context";
 import { metamask } from "../assets";
-
+import Modal from "./Modal";
 
 const truncate = (_walletAddress) => {
   if (!_walletAddress) return ""
@@ -11,6 +11,7 @@ const truncate = (_walletAddress) => {
 const ConnectWallet = () => {
 
   const { walletAddress, isConnected, connectWallet, walletBalance } = useMintDappContext();
+  const [showModal, setShowModal] = useState(false);
 
   const truncatedAddress = truncate(walletAddress);
 
@@ -18,7 +19,7 @@ const ConnectWallet = () => {
     <div className="flex flex-col items-center">
       <button 
         className= {`font-poppins text-md w-[160px] ${!isConnected ? "h-[48px]" : "h-[64px] w-[180px]"} pt-2 pb-2 pr-[12px] pl-[12px] bg-[#161618] outline outline-2 outline-offset-0 outline-black rounded-box backdrop-blur-sm shadow-[1px_1px_20px] shadow-black hover:bg-[#202020] active:scale-110 font-semibold`} 
-        onClick={() => { !isConnected ? connectWallet() : alert("modal open") }}>
+        onClick={() => { !isConnected ? connectWallet() : setShowModal(true)}}>
         {isConnected ? (
           <div className="flex flex-row items-center justify-between gap-2">
             <div className="flex flex-col items-start">
@@ -31,6 +32,7 @@ const ConnectWallet = () => {
           "Connect"
         )}
       </button>
+      <Modal open={showModal} onClose={() => setShowModal(false)} addr={walletAddress} address={truncatedAddress} balances={walletBalance} />
     </div>
   );
 };
