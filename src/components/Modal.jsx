@@ -1,5 +1,6 @@
 import React from 'react';
 import { metamask } from "../assets";
+import { RxCopy } from "react-icons/rx";
 
 
 const Modal = ({ open, onClose, addr, address, balances }) => {
@@ -16,8 +17,11 @@ const Modal = ({ open, onClose, addr, address, balances }) => {
         <div className="flex flex-row items-center justify-start gap-2">
           <img src={metamask} alt="metamask" className="h-14 w-14" />
           <div className="flex flex-col items-start">
-            <h3 className="text-[#dededf] text-md font-poppins font-medium">{address}</h3>
-            <h3 className="text-xs font-medium font-poppins text-[#656565]">{balances.toFixed(3)} MATIC</h3>
+            <div className="flex place-items-center flex-row gap-2">
+              <h3 className="text-[#dededf] text-md font-poppins font-medium">{address}</h3>
+              <RxCopy color="#656565" className="cursor-pointer" />
+            </div>
+            <h3 className="text-sm font-poppins text-[#656565]">{balances.toFixed(3)} MATIC</h3>
           </div>
         </div>
       </div>
