@@ -42,7 +42,7 @@ const Mint = () => {
         </a>
         <div className="flex flex-1 flex-col bg-[rgb(38,38,38,0.25)] bg-opacity-70 backdrop-blur-sm p-4 rounded-box w-[420px] items-center justify-between outline outline-2 outline-offset-0 outline-black gap-2">
           <div className="w-[240px] h-[240px] cursor-pointer bg-[#0D0D0D] rounded-box outline outline-2 outline-offset-0 outline-black shadow-black shadow-[1px_2px_20px]">
-            <img src={`/artworks/${index}.png`} alt="nfts"/>
+            <img src={`https://ipfs.io/ipfs/bafybeie3ptujwggr4rvhyezew6vpcaagbcnxmzmjidepbno2auckecwani/${index}.png`} alt="nfts"/>
           </div>
           <div className="flex flex-row gap-4 place-items-center">
             <a target="_blank" href="https://testnets.opensea.io/collection/raptorsnft-9">
