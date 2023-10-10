@@ -11,8 +11,8 @@
   },
   "dependencies": {
     "@openzeppelin/contracts": "^4.8.2",
-    "daisyui": "^2.51.5",
-    "framer-motion": "^10.10.0",
+    "daisyui": "^2.52.0",
+    "framer-motion": "^10.16.4",
     "ipfs-http-client": "^60.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -32,14 +32,14 @@
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
     "@vitejs/plugin-react": "^3.1.0",
-    "autoprefixer": "^10.4.14",
+    "autoprefixer": "^10.4.16",
     "chai": "^4.3.7",
     "dotenv": "^16.3.1",
     "ethereum-waffle": "^4.0.10",
     "ethers": "^5.7.2",
     "hardhat": "^2.13.0",
-    "postcss": "^8.4.21",
-    "tailwindcss": "^3.3.0",
+    "postcss": "^8.4.30",
+    "tailwindcss": "^3.3.3",
     "vite": "^4.2.0"
   }
 }
